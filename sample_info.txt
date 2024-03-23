@@ -1,0 +1,5 @@
+sample_name	sample_id	title	source	is_paired
+wt1	HJV5JBCXX_PR0478_01A0202	WT	m1	paired
+wt2	HJV5JBCXX_PR0478_02A0403	WT	m2	paired
+ko1	HJV5JBCXX_PR0478_03A1105	KO	m1	paired
+ko2	HJV5JBCXX_PR0478_04A1206	KO	m2	paired
