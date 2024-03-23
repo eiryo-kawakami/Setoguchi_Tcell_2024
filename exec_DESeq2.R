@@ -1,5 +1,15 @@
 library(DESeq2)
 
+limit <- 10
+
+cutoff <- function(num,limit){
+	if(num > limit){
+		return(limit)
+	}else if(num < -limit){
+		return(-limit)
+	}else return(num)
+}
+
 sample_db <- read.table("sample_info.txt",sep="\t",header=T,row.names=2)
 sample_db$title <- factor(sample_db$title,levels=c("WT","KO"))
 
@@ -20,3 +30,15 @@ res <- lfcShrink(dds, coef="title_KO_vs_WT", type="apeglm")
 #res <- results(dds, name="title_KO_vs_WT",independentFiltering=FALSE)
 
 write.table(res,file="Setoguchi_Tcell_logFC.txt",sep="\t",quote=F)
+
+rld <- rlog(dds, blind=FALSE)
+mat <- assay(rld)
+
+write.table(mat, file="Setoguchi_Tcell_rlog_count.txt",sep="\t",quote=F)
+
+limit <- 10
+
+mat2 <- mat - rowMedians(as.matrix(mat))
+mat3 <- apply(mat2,c(1,2),cutoff,limit)
+
+write.table(mat3, file="Setoguchi_Tcell_rlog_count_center_cutoff.txt",sep="\t",quote=F)

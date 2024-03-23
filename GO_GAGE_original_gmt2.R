@@ -13,7 +13,7 @@ for (cat in GO_category){
 	exp.fc <- read.table(logfc.file,sep='\t',header=T,row.names=1)
 	exp.fc <- exp.fc[,c(2),drop=F]
 
-	gset_file <- readList(paste("/Users/eiryokawakami/Dropbox/PPI/Mouse/database/Uniprot/GO_gset_",cat,".gmt",sep=""))
+	gset_file <- readList(paste("GO_gset_",cat,".gmt",sep=""))
 
 	go.p <- gage(exp.fc,gsets=gset_file, set.size = c(10, 1000))
 	go.sig <- sigGeneSet(go.p,outname=paste("Setoguchi_Tcell_GO_",cat,sep=""),cutoff=1)
